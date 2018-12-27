@@ -258,11 +258,16 @@ def change_settings():
         return json_resp("ERROR", "One of the fields is invalid", 400)
     try:
         with connection.cursor() as cursor:
-            print('connected and changing existing settings')
-            sql = "UPDATE store_info SET name = '{}', email = '{}' WHERE enforce_one_row = 'only'".format(new_name,
-                                                                                                          new_email)
+            check_if_info_in_db = "SELECT * FROM store_info"
+            cursor.execute(check_if_info_in_db)
+            in_db = cursor.fetchone()
+            if in_db:
+                sql = "UPDATE store_info SET name = '{}', email = '{}' WHERE enforce_one_row = 'only'".format(new_name,
+                                                                                                              new_email)
+            else:
+                sql = "INSERT INTO store_info (enforce_one_row, name, email) VALUES('only', '{}', '{}')".format(
+                    new_name, new_email)
             cursor.execute(sql)
-            print('executed ' + sql)
             connection.commit()
             return json_resp("SUCCESS", "", 201)
     except:

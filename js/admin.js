@@ -232,8 +232,10 @@ StoreAdmin.loadStoreInfo = function () {
 		url: "/settings",
 		dataType: 'json',
 		success: function (result) {
-			$('#store-name').attr('value', result["INFO"]["name"]);
-			$('#store-email').attr('value', result["INFO"]["email"]);
+			if (result["INFO"] !== null) {
+				$('#store-name').attr('value', result["INFO"]["name"]);
+				$('#store-email').attr('value', result["INFO"]["email"]);
+			}
 		}
 	})
 }
