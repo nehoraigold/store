@@ -58,7 +58,6 @@ Store.loadStoreInfo = function() {
 		url: "/settings",
 		dataType: 'json',
 		success: function(result) {
-			console.log(result);
 			$('input[name="business"]').attr('value', result["INFO"]['email']);
 			$('.store-name').text(result["INFO"]["name"]);
 		},

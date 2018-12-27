@@ -11,7 +11,6 @@ connection = pymysql.connect(host='localhost',
 
 
 def json_resp(status, msg, code, field=None, field_contents=None):
-    # response["status_code"] = code
     new_dict = {
         "STATUS": status,
         "MSG": msg,
@@ -270,5 +269,4 @@ def change_settings():
         return intErr()
 
 
-# run(host='0.0.0.0', port=argv[1])
 run(host='localhost', port=7000)
